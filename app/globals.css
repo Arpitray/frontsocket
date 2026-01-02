@@ -1,0 +1,713 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-paper: #fdfbf7;
+    --color-ink: #2c3e50;
+    --color-wash-blue: #a8c0d8;
+    --color-wash-grey: #d1d5db;
+    --color-pastel-pink: #f4c2c2;
+    --color-pastel-yellow: #fdfd96;
+    --color-pastel-peach: #ffdab9;
+    --color-panel-bg: #ffffff;
+    
+    /* Vibrant Comic Colors */
+    --color-hero-blue: #3b82f6; /* Bright Blue */
+    --color-hero-red: #ef4444;  /* Bright Red */
+    --color-hero-yellow: #fbbf24; /* Bright Yellow */
+  }
+
+  [data-theme='dark'] {
+    --color-paper: #212227; /* deep midnight navy */
+    --color-ink: #e6eef8;   /* soft chalk/ink on dark */
+    --color-wash-blue: #224a66; /* muted indigo wash */
+    --color-wash-grey: #26353f; /* dark slate */
+    --color-pastel-pink: #be185d; /* accent magenta kept for stickers */
+     /* Button accent colors: chosen for strong, pleasant contrast against midnight navy
+       - primary: a vibrant cyan-teal for call-to-action
+       - hover: slightly deeper cyan for interactive affordance
+       These values provide accessible contrast on the dark background. */
+    /* Darker, muted teal pair for CTAs (better on midnight background) */
+    /* Moderated, darker teal pair for CTAs — lowered brightness, preserved identity */
+    --color-pastel-yellow: #0a6b6d; /* balanced deep teal (primary CTA) */
+    --color-pastel-peach: #045554; /* darker teal for hover/active */
+    --color-panel-bg: #0b1320; /* slightly lighter than page background */
+  }
+}
+
+@theme {
+  --color-paper: var(--color-paper);
+  --color-ink: var(--color-ink);
+  --color-wash-blue: var(--color-wash-blue);
+  --color-wash-grey: var(--color-wash-grey);
+  --color-pastel-pink: var(--color-pastel-pink);
+  --color-pastel-yellow: var(--color-pastel-yellow);
+  --color-pastel-peach: var(--color-pastel-peach);
+  --color-panel-bg: var(--color-panel-bg);
+  
+  --color-hero-blue: var(--color-hero-blue);
+  --color-hero-red: var(--color-hero-red);
+  --color-hero-yellow: var(--color-hero-yellow);
+  
+  --font-comic: "Patrick Hand", cursive, sans-serif;
+}
+
+@layer utilities {
+  .border-3 {
+    border-width: 3px;
+  }
+
+  .paper-texture {
+    background-color: var(--color-paper);
+    background-image: 
+      radial-gradient(var(--color-wash-grey) 1px, transparent 1px),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 20px 20px, auto;
+  }
+
+  .comic-panel {
+    @apply border-2 border-ink rounded-sm shadow-md relative overflow-hidden;
+    background-color: var(--color-panel-bg);
+    border: 3px solid var(--color-ink);
+    box-shadow: 8px 8px 0px var(--color-ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+
+  .watercolor-wash {
+    @apply absolute inset-0 opacity-40 pointer-events-none;
+    background: radial-gradient(circle at 30% 30%, var(--color-wash-blue), transparent 60%),
+                radial-gradient(circle at 70% 70%, var(--color-pastel-pink), transparent 60%);
+    filter: blur(30px);
+    mix-blend-mode: multiply;
+  }
+
+  .ink-border {
+    border: 3px solid var(--color-ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+  
+  .btn-comic {
+    @apply px-6 py-3 font-bold text-ink transition-all duration-200 ease-out cursor-pointer text-lg relative overflow-hidden;
+    background-color: var(--color-pastel-yellow);
+    border: 3px solid var(--color-ink);
+    box-shadow: 5px 5px 0px var(--color-ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  }
+  
+  
+
+ 
+/* 
+  .btn-comic.primary {
+    background-color: var(--color-pastel-yellow);
+  } */
+  
+  /* Primary: no background swap on hover to avoid flashy transitions */
+  .btn-comic.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px var(--color-ink);
+  }
+
+  .btn-comic.secondary {
+    background-color: var(--color-panel-bg);
+  }
+  
+  /* Secondary: keep hover subtle */
+  .btn-comic.secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px var(--color-ink);
+  }
+
+  .btn-comic.danger {
+    background-color: #ff6b6b;
+    color: white;
+  }
+  
+  /* Danger: avoid flashy color shift on hover */
+  .btn-comic.danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px var(--color-ink);
+  }
+
+  .input-comic {
+    @apply px-4 py-3 outline-none text-ink text-lg transition-all duration-200;
+    background-color: var(--color-panel-bg);
+    border: 3px solid var(--color-ink);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .input-comic:focus {
+    border-color: var(--color-ink);
+    box-shadow: 5px 5px 0px var(--color-ink);
+    transform: translateY(-2px) rotate(0.5deg);
+  }
+
+  .comic-sticker {
+    @apply absolute z-20 pointer-events-none opacity-0; /* Hidden for cleaner look */
+  }
+
+  .speech-bubble {
+    @apply relative border-3 border-ink p-3 rounded-xl shadow-[5px_5px_0px_var(--color-ink)];
+    background-color: var(--color-panel-bg);
+  }
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: var(--color-ink) transparent;
+    display: block;
+    width: 0;
+  }
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 22px;
+    border-width: 8px 8px 0;
+    border-style: solid;
+    border-color: var(--color-panel-bg) transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* .animate-wiggle:hover {
+  animation: wiggle 0.3s ease-in-out infinite;
+} */
+
+.animate-pop:active {
+  animation: pop 0.1s ease-in-out;
+}
+
+/* ============================================
+   🎨 ULTIMATE COMIC BOOK EXPERIENCE
+   ============================================ */
+
+/* === HALFTONE OVERLAY EFFECT === */
+.halftone-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--color-ink) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* === COMIC ACTION WORDS (Click Effects) === */
+@keyframes comicPop {
+  0% { transform: scale(0) rotate(-20deg); opacity: 1; }
+  50% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+  100% { transform: scale(0.8) rotate(0deg); opacity: 0; }
+}
+
+.comic-action-word {
+  position: fixed;
+  font-family: var(--font-bangers), 'Bangers', 'Impact', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--color-pastel-yellow);
+  text-shadow: 
+    3px 3px 0 var(--color-ink),
+    -1px -1px 0 var(--color-ink),
+    1px -1px 0 var(--color-ink),
+    -1px 1px 0 var(--color-ink);
+  pointer-events: none;
+  z-index: 9999;
+  animation: comicPop 0.6s ease-out forwards;
+}
+
+/* === BUTTON COMIC BURST ON HOVER === */
+/* .btn-comic {
+  position: relative;
+  overflow: visible;
+} */
+
+.btn-comic::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, var(--color-pastel-peach) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+  z-index: -1;
+}
+
+.btn-comic:hover::before {
+  width: 200%;
+  height: 200%;
+}
+
+/* === ANIMATED SPEED LINES === */
+@keyframes speedLines {
+  0% { transform: translateX(-100%) scaleX(0); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: translateX(100%) scaleX(1); opacity: 0; }
+}
+
+.speed-lines {
+  position: relative;
+  overflow: hidden;
+}
+
+.speed-lines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 10px,
+    var(--color-ink) 10px,
+    var(--color-ink) 12px
+  );
+  opacity: 0;
+  pointer-events: none;
+  animation: speedLines 0.5s ease-out;
+}
+
+/* === LIVE INDICATOR PULSE === */
+@keyframes livePulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    transform: scale(1.1);
+  }
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  border: 3px solid var(--color-ink);
+  box-shadow: 3px 3px 0 var(--color-ink);
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+.live-indicator::before {
+  content: '●';
+  font-size: 1.2em;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* === COMIC PANEL HOVER LIFT === */
+.comic-panel {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.comic-panel:hover {
+  transform: translateY(-4px) rotate(-0.5deg);
+  box-shadow: 8px 8px 0px var(--color-ink);
+}
+
+/* === FLOATING ANIMATION FOR DECORATIVE ELEMENTS === */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(2deg); }
+  75% { transform: translateY(5px) rotate(-2deg); }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* === COMIC SPARKLE EFFECT === */
+@keyframes sparkle {
+  0%, 100% { 
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+.sparkle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--color-pastel-yellow);
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 
+    50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%
+  );
+  animation: sparkle 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* === THOUGHT BUBBLE === */
+.thought-bubble {
+  position: relative;
+  background: var(--color-panel-bg);
+  border: 3px solid var(--color-ink);
+  border-radius: 50%;
+  padding: 20px 30px;
+  box-shadow: 4px 4px 0 var(--color-ink);
+}
+
+.thought-bubble::before,
+.thought-bubble::after {
+  content: '';
+  position: absolute;
+  background: var(--color-panel-bg);
+  border: 3px solid var(--color-ink);
+  border-radius: 50%;
+}
+
+.thought-bubble::before {
+  width: 20px;
+  height: 20px;
+  bottom: -15px;
+  left: 30px;
+}
+
+.thought-bubble::after {
+  width: 12px;
+  height: 12px;
+  bottom: -28px;
+  left: 20px;
+}
+
+/* === COMIC SHAKE ON ERROR === */
+@keyframes comicShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) rotate(-1deg); }
+  20%, 40%, 60%, 80% { transform: translateX(5px) rotate(1deg); }
+}
+
+.shake-error {
+  animation: comicShake 0.5s ease-in-out;
+}
+
+/* === GRADIENT TEXT EFFECT === */
+.comic-gradient-text {
+  background: linear-gradient(135deg, var(--color-ink), var(--color-wash-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === RETRO SCAN LINES (for video) === */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03),
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* === COMIC BORDER DASH ANIMATION === */
+@keyframes borderDash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.animated-border {
+  position: relative;
+}
+
+.animated-border::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 3px dashed var(--color-ink);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.animated-border:hover::after {
+  opacity: 1;
+  animation: borderDash 0.5s linear infinite;
+}
+
+/* === CLEAN TOOLTIP === */
+.comic-tooltip {
+  position: relative;
+}
+
+.comic-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--color-ink);
+  color: var(--color-panel-bg);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+}
+
+.comic-tooltip:hover::after {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* === SUBTLE ANIMATIONS === */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* === STICKER PEEL EFFECT === */
+@keyframes stickerPeel {
+  0% { transform: rotate(-5deg) scale(1); }
+  25% { transform: rotate(0deg) scale(1.05) translateY(-3px); }
+  50% { transform: rotate(3deg) scale(1.02); }
+  100% { transform: rotate(-5deg) scale(1); }
+}
+
+.sticker-effect:hover {
+  animation: stickerPeel 0.4s ease-in-out;
+}
+
+/* === NEON GLOW (for active streaming) === */
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    box-shadow: 
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px var(--color-pastel-yellow),
+      0 0 40px var(--color-pastel-yellow);
+  }
+  20%, 24%, 55% {
+    box-shadow: none;
+  }
+}
+
+.neon-glow {
+  animation: neonFlicker 2s infinite alternate;
+}
+
+/* === MANGA FOCUS LINES === */
+.manga-focus {
+  position: relative;
+}
+
+.manga-focus::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: 
+    conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      var(--color-ink) 2deg,
+      transparent 4deg,
+      transparent 20deg
+    );
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* === INPUT FOCUS COMIC STYLE === */
+.input-comic:focus {
+  outline: none;
+  box-shadow: 
+    inset 2px 2px 4px rgba(0,0,0,0.05),
+    0 0 0 4px var(--color-pastel-yellow),
+    6px 6px 0 var(--color-ink);
+  transform: translateY(-2px);
+}
+
+/* === CONFETTI BURST === */
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: confettiFall 3s ease-out forwards;
+}
+
+/* === PAGE TRANSITION COMIC WIPE === */
+@keyframes comicWipe {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+  }
+}
+
+.comic-wipe-in {
+  animation: comicWipe 0.8s ease-out;
+}
+
+/* === TYPEWRITER TEXT EFFECT === */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typewriter-text {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--color-ink);
+  animation: 
+    typewriter 2s steps(30) 1s forwards,
+    blink 0.7s step-end infinite;
+}
+
+/* === COMIC STAMP EFFECT === */
+.comic-stamp {
+  position: relative;
+  display: inline-block;
+}
+
+.comic-stamp::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 4px dashed var(--color-ink);
+  border-radius: 4px;
+  opacity: 0.6;
+}
+
+/* --- New Eye-Catching Effects --- */
+
+.washi-tape {
+  @apply absolute h-8 w-24 bg-yellow-100/90 shadow-sm z-20;
+  mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='100%25' height='100%25' fill='black'/%3E%3C/svg%3E");
+  /* Jagged edges via clip-path */
+  clip-path: polygon(
+    0% 5%, 5% 0%, 10% 5%, 15% 0%, 20% 5%, 25% 0%, 30% 5%, 35% 0%, 40% 5%, 45% 0%, 50% 5%, 55% 0%, 60% 5%, 65% 0%, 70% 5%, 75% 0%, 80% 5%, 85% 0%, 90% 5%, 95% 0%, 100% 5%,
+    100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0% 95%
+  );
+  transform: rotate(-25deg);
+}
+
+.halftone-pattern {
+  background-image: radial-gradient(var(--color-ink) 1px, transparent 1px);
+  background-size: 8px 8px;
+  opacity: 0.1;
+}
+
+.comic-explosion {
+  clip-path: polygon(
+    20% 0%, 30% 20%, 50% 0%, 60% 25%, 80% 5%, 85% 30%, 100% 20%, 
+    90% 45%, 100% 60%, 85% 70%, 95% 90%, 70% 80%, 60% 100%, 45% 80%, 
+    25% 100%, 20% 75%, 0% 85%, 10% 60%, 0% 40%, 15% 30%
+  );
+}
+
+.sketch-underline {
+  position: relative;
+  display: inline-block;
+}
+.sketch-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 4px;
+  background-color: var(--color-ink);
+  mask-image: url("data:image/svg+xml,%3Csvg width='100' height='5' viewBox='0 0 100 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2.5 Q 25 5, 50 2.5 T 100 2.5' stroke='black' fill='none' stroke-width='2'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='100' height='5' viewBox='0 0 100 5' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2.5 Q 25 5, 50 2.5 T 100 2.5' stroke='black' fill='none' stroke-width='2'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  pointer-events: none;
+}
+
+body {
+  @apply text-ink font-comic;
+}
+
+/* Ensure videos fill the container when it (or the video) is fullscreen */
+.remote-container:fullscreen video,
+.remote-container:-webkit-full-screen video,
+video:fullscreen,
+video:-webkit-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* Also make the fullscreen container use full viewport */
+.remote-container:fullscreen,
+.remote-container:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
