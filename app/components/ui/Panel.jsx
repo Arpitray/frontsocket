@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Reusable Panel component with comic/watercolor theme
+ * Reusable Panel component with Neo-Brutalist design system
  * @param {Object} props
  * @param {string} props.title - Panel title
  * @param {React.ReactNode} props.icon - Optional icon to display in header
@@ -24,24 +24,24 @@ export function Panel({
 }) {
   const variantStyles = {
     default: {
-      container: 'bg-paper border-ink',
-      header: 'bg-hero-yellow border-ink text-ink',
+      container: 'bg-[var(--color-paper)] border-ink',
+      header: 'bg-[var(--color-hero-yellow)] border-ink text-[var(--color-ink)]',
       shadow: 'shadow-[8px_8px_0px_var(--color-ink)]'
     },
     highlight: {
-      container: 'bg-paper border-hero-blue',
-      header: 'bg-hero-blue border-hero-blue text-white',
+      container: 'bg-[var(--color-paper)] border-[var(--color-hero-blue)]',
+      header: 'bg-[var(--color-hero-blue)] border-[var(--color-hero-blue)] text-white',
       shadow: 'shadow-[8px_8px_0px_var(--color-hero-blue)]'
     },
     danger: {
-      container: 'bg-paper border-hero-red',
-      header: 'bg-hero-red border-hero-red text-white',
+      container: 'bg-[var(--color-paper)] border-[var(--color-hero-red)]',
+      header: 'bg-[var(--color-hero-red)] border-[var(--color-hero-red)] text-white',
       shadow: 'shadow-[8px_8px_0px_var(--color-hero-red)]'
     },
     success: {
-      container: 'bg-paper border-emerald-600',
-      header: 'bg-emerald-500 border-emerald-600 text-white',
-      shadow: 'shadow-[8px_8px_0px_rgb(5,150,105)]'
+      container: 'bg-[var(--color-paper)] border-[var(--color-hero-green)]',
+      header: 'bg-[var(--color-hero-green)] border-[var(--color-hero-green)] text-white',
+      shadow: 'shadow-[8px_8px_0px_var(--color-hero-green)]'
     }
   };
 
@@ -52,9 +52,11 @@ export function Panel({
       className={`
         ${styles.container}
         ${styles.shadow}
-        border-4 rounded-sm
-        comic-panel paper-texture
+        border-3
         overflow-hidden
+        transition-all duration-300
+        hover:translate-x-[-2px] hover:translate-y-[-2px]
+        hover:shadow-[12px_12px_0px_var(--color-ink)]
         ${className}
       `.trim().replace(/\s+/g, ' ')}
       {...props}
@@ -64,8 +66,8 @@ export function Panel({
         <div
           className={`
             ${styles.header}
-            border-b-4 px-6 py-3
-            font-display text-xl font-bold uppercase tracking-wider
+            border-b-3 px-6 py-4
+            font-display text-xl uppercase tracking-wider
             flex items-center gap-3
             ${headerClassName}
           `.trim().replace(/\s+/g, ' ')}
@@ -82,7 +84,7 @@ export function Panel({
 
       {/* Footer */}
       {footer && (
-        <div className="border-t-2 border-ink/20 px-6 py-4 bg-ink/5">
+        <div className="border-t-3 border-ink/20 px-6 py-4 bg-[var(--color-wash-grey)]/30">
           {footer}
         </div>
       )}
@@ -102,15 +104,18 @@ export function CompactPanel({
   return (
     <div
       className={`
-        bg-paper border-2 border-ink rounded-sm
+        bg-[var(--color-paper)] border-3 border-ink
         shadow-[4px_4px_0px_var(--color-ink)]
         overflow-hidden
+        transition-all duration-200
+        hover:shadow-[6px_6px_0px_var(--color-ink)]
+        hover:translate-x-[-2px] hover:translate-y-[-2px]
         ${className}
       `.trim().replace(/\s+/g, ' ')}
       {...props}
     >
       {title && (
-        <div className="bg-ink/10 border-b-2 border-ink px-4 py-2 font-action text-sm font-bold uppercase">
+        <div className="bg-[var(--color-wash-grey)] border-b-3 border-ink px-4 py-3 font-display text-sm uppercase tracking-wider">
           {title}
         </div>
       )}
@@ -139,26 +144,28 @@ export function CardPanel({
     <div
       onClick={onClick}
       className={`
-        bg-paper border-3 border-ink rounded-sm
+        bg-[var(--color-paper)] border-3 border-ink
         shadow-[6px_6px_0px_var(--color-ink)]
         overflow-hidden
         transition-all duration-200
-        ${isClickable ? 'cursor-pointer hover:shadow-[3px_3px_0px_var(--color-ink)] hover:translate-x-[3px] hover:translate-y-[3px]' : ''}
+        ${isClickable ? 'cursor-pointer hover:shadow-[3px_3px_0px_var(--color-ink)] hover:translate-x-[3px] hover:translate-y-[3px]' : 'hover:shadow-[8px_8px_0px_var(--color-ink)] hover:translate-x-[-2px] hover:translate-y-[-2px]'}
         ${className}
       `.trim().replace(/\s+/g, ' ')}
       {...props}
     >
-      <div className="p-5">
+      <div className="p-6">
         {icon && (
-          <div className="text-4xl mb-3">{icon}</div>
+          <div className="w-14 h-14 bg-[var(--color-hero-blue)] border-3 border-ink flex items-center justify-center mb-4 shadow-[4px_4px_0px_var(--color-ink)]">
+            <span className="text-3xl">{icon}</span>
+          </div>
         )}
         {title && (
-          <h3 className="font-display text-lg font-bold uppercase tracking-wide mb-1">
+          <h3 className="font-display text-xl uppercase tracking-wide mb-2">
             {title}
           </h3>
         )}
         {subtitle && (
-          <p className="text-ink/70 text-sm font-body">
+          <p className="text-[var(--color-ink)]/60 text-sm font-body leading-relaxed">
             {subtitle}
           </p>
         )}

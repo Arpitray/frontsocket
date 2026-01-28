@@ -1,37 +1,57 @@
+/* === DISTINCTIVE TYPOGRAPHY === */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --color-paper: #fdfbf7;
-    --color-ink: #2c3e50;
-    --color-wash-blue: #a8c0d8;
-    --color-wash-grey: #d1d5db;
-    --color-pastel-pink: #f4c2c2;
-    --color-pastel-yellow: #fdfd96;
-    --color-pastel-peach: #ffdab9;
+    /* Neo-Brutalist Palette - Bold & Intentional */
+    --color-paper: #f7f5f0;
+    --color-ink: #0d0d0d;
+    --color-wash-blue: #c5d5e8;
+    --color-wash-grey: #e8e6e1;
+    --color-pastel-pink: #ff6b9d;
+    --color-pastel-yellow: #ffe156;
+    --color-pastel-peach: #ff9f68;
     --color-panel-bg: #ffffff;
     
-    /* Vibrant Comic Colors */
-    --color-hero-blue: #3b82f6; /* Bright Blue */
-    --color-hero-red: #ef4444;  /* Bright Red */
-    --color-hero-yellow: #fbbf24; /* Bright Yellow */
+    /* High-Impact Accent Colors */
+    --color-hero-blue: #0055ff;
+    --color-hero-red: #ff2d55;
+    --color-hero-yellow: #ffe156;
+    --color-hero-green: #00d68f;
+    --color-hero-purple: #8b5cf6;
+    
+    /* Gradient Mesh Colors */
+    --gradient-start: #ff6b9d;
+    --gradient-mid: #c084fc;
+    --gradient-end: #0055ff;
+    
+    /* Typography */
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Sora', sans-serif;
+    --font-mono: 'Space Mono', monospace;
   }
 
   [data-theme='dark'] {
-    --color-paper: #212227; /* deep midnight navy */
-    --color-ink: #e6eef8;   /* soft chalk/ink on dark */
-    --color-wash-blue: #224a66; /* muted indigo wash */
-    --color-wash-grey: #26353f; /* dark slate */
-    --color-pastel-pink: #be185d; /* accent magenta kept for stickers */
-     /* Button accent colors: chosen for strong, pleasant contrast against midnight navy
-       - primary: a vibrant cyan-teal for call-to-action
-       - hover: slightly deeper cyan for interactive affordance
-       These values provide accessible contrast on the dark background. */
-    /* Darker, muted teal pair for CTAs (better on midnight background) */
-    /* Moderated, darker teal pair for CTAs — lowered brightness, preserved identity */
-    --color-pastel-yellow: #0a6b6d; /* balanced deep teal (primary CTA) */
-    --color-pastel-peach: #045554; /* darker teal for hover/active */
-    --color-panel-bg: #0b1320; /* slightly lighter than page background */
+    --color-paper: #0a0a0b;
+    --color-ink: #f5f5f7;
+    --color-wash-blue: #1a2744;
+    --color-wash-grey: #18181b;
+    --color-pastel-pink: #ff4081;
+    --color-pastel-yellow: #ffd600;
+    --color-pastel-peach: #ff8a50;
+    --color-panel-bg: #111113;
+    
+    --color-hero-blue: #3d8bff;
+    --color-hero-red: #ff4d6d;
+    --color-hero-yellow: #ffd600;
+    --color-hero-green: #00e676;
+    --color-hero-purple: #a78bfa;
+    
+    --gradient-start: #ff4081;
+    --gradient-mid: #9333ea;
+    --gradient-end: #3d8bff;
   }
 }
 
@@ -48,8 +68,13 @@
   --color-hero-blue: var(--color-hero-blue);
   --color-hero-red: var(--color-hero-red);
   --color-hero-yellow: var(--color-hero-yellow);
+  --color-hero-green: var(--color-hero-green);
+  --color-hero-purple: var(--color-hero-purple);
   
-  --font-comic: "Patrick Hand", cursive, sans-serif;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-comic: var(--font-body);
 }
 
 @layer utilities {
@@ -691,7 +716,174 @@
 }
 
 body {
-  @apply text-ink font-comic;
+  @apply text-ink;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === DISTINCTIVE TYPOGRAPHY CLASSES === */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* === GRADIENT MESH BACKGROUND === */
+.gradient-mesh {
+  background: 
+    radial-gradient(ellipse at 20% 30%, var(--gradient-start) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, var(--gradient-end) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, var(--gradient-mid) 0%, transparent 60%),
+    var(--color-paper);
+  background-size: 100% 100%;
+}
+
+/* === NOISE TEXTURE OVERLAY === */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* === DRAMATIC SHADOWS === */
+.shadow-brutal {
+  box-shadow: 8px 8px 0 var(--color-ink);
+}
+
+.shadow-brutal-lg {
+  box-shadow: 12px 12px 0 var(--color-ink);
+}
+
+.shadow-brutal-xl {
+  box-shadow: 16px 16px 0 var(--color-ink);
+}
+
+/* === ANIMATED GRADIENT TEXT === */
+@keyframes gradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end), var(--gradient-start));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientFlow 8s ease infinite;
+}
+
+/* === STAGGERED REVEAL ANIMATION === */
+@keyframes revealUp {
+  0% { 
+    opacity: 0; 
+    transform: translateY(40px) scale(0.95); 
+    filter: blur(10px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+    filter: blur(0);
+  }
+}
+
+.reveal-up {
+  animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.reveal-up-1 { animation-delay: 0.1s; }
+.reveal-up-2 { animation-delay: 0.2s; }
+.reveal-up-3 { animation-delay: 0.3s; }
+.reveal-up-4 { animation-delay: 0.4s; }
+.reveal-up-5 { animation-delay: 0.5s; }
+.reveal-up-6 { animation-delay: 0.6s; }
+
+/* === MAGNETIC HOVER EFFECT === */
+.magnetic-hover {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.magnetic-hover:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 var(--color-ink);
+}
+
+.magnetic-hover:active {
+  transform: translate(0, 0);
+  box-shadow: 4px 4px 0 var(--color-ink);
+}
+
+/* === GLOW EFFECT === */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(0, 85, 255, 0.3), 0 0 60px rgba(0, 85, 255, 0.1);
+}
+
+.glow-pink {
+  box-shadow: 0 0 20px rgba(255, 107, 157, 0.3), 0 0 60px rgba(255, 107, 157, 0.1);
+}
+
+/* === DIAGONAL PATTERN === */
+.diagonal-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    var(--color-ink) 10px,
+    var(--color-ink) 11px
+  );
+  opacity: 0.05;
+}
+
+/* === DOT GRID PATTERN === */
+.dot-grid {
+  background-image: radial-gradient(var(--color-ink) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  opacity: 0.1;
+}
+
+/* === MARQUEE ANIMATION === */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* === BLOB ANIMATION === */
+@keyframes blob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+  75% { border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%; }
+}
+
+.blob-morph {
+  animation: blob 8s ease-in-out infinite;
+}
+
+/* === SCROLL INDICATOR === */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
 }
 
 /* Ensure videos fill the container when it (or the video) is fullscreen */

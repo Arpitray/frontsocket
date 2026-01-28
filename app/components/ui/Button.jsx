@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Reusable Button component with comic/watercolor theme variants
+ * Reusable Button component with Neo-Brutalist design system
  * @param {Object} props
  * @param {'primary' | 'secondary' | 'danger' | 'success' | 'ghost'} props.variant - Button style variant
  * @param {'sm' | 'md' | 'lg'} props.size - Button size
@@ -24,53 +24,53 @@ export function Button({
   ...props
 }) {
   const baseStyles = `
-    font-action font-bold uppercase tracking-wider
-    border-2 border-ink rounded-sm
-    transition-all duration-200
+    font-body font-bold uppercase tracking-wider
+    border-3 border-ink
+    transition-all duration-200 ease-out
     disabled:opacity-50 disabled:cursor-not-allowed
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-hero-blue
+    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-hero-blue)]
   `;
 
   const variantStyles = {
     primary: `
-      bg-hero-blue text-white
-      shadow-[4px_4px_0px_var(--color-ink)]
-      hover:shadow-[2px_2px_0px_var(--color-ink)]
-      hover:translate-x-[2px] hover:translate-y-[2px]
-      active:shadow-none active:translate-x-[4px] active:translate-y-[4px]
+      bg-[var(--color-hero-blue)] text-white
+      shadow-[6px_6px_0px_var(--color-ink)]
+      hover:shadow-[3px_3px_0px_var(--color-ink)]
+      hover:translate-x-[3px] hover:translate-y-[3px]
+      active:shadow-none active:translate-x-[6px] active:translate-y-[6px]
     `,
     secondary: `
-      bg-paper text-ink
-      shadow-[4px_4px_0px_var(--color-ink)]
-      hover:shadow-[2px_2px_0px_var(--color-ink)]
-      hover:translate-x-[2px] hover:translate-y-[2px]
-      active:shadow-none active:translate-x-[4px] active:translate-y-[4px]
+      bg-[var(--color-paper)] text-[var(--color-ink)]
+      shadow-[6px_6px_0px_var(--color-ink)]
+      hover:shadow-[3px_3px_0px_var(--color-ink)]
+      hover:translate-x-[3px] hover:translate-y-[3px]
+      active:shadow-none active:translate-x-[6px] active:translate-y-[6px]
     `,
     danger: `
-      bg-hero-red text-white
-      shadow-[4px_4px_0px_var(--color-ink)]
-      hover:shadow-[2px_2px_0px_var(--color-ink)]
-      hover:translate-x-[2px] hover:translate-y-[2px]
-      active:shadow-none active:translate-x-[4px] active:translate-y-[4px]
+      bg-[var(--color-hero-red)] text-white
+      shadow-[6px_6px_0px_var(--color-ink)]
+      hover:shadow-[3px_3px_0px_var(--color-ink)]
+      hover:translate-x-[3px] hover:translate-y-[3px]
+      active:shadow-none active:translate-x-[6px] active:translate-y-[6px]
     `,
     success: `
-      bg-emerald-500 text-white
-      shadow-[4px_4px_0px_var(--color-ink)]
-      hover:shadow-[2px_2px_0px_var(--color-ink)]
-      hover:translate-x-[2px] hover:translate-y-[2px]
-      active:shadow-none active:translate-x-[4px] active:translate-y-[4px]
+      bg-[var(--color-hero-green)] text-white
+      shadow-[6px_6px_0px_var(--color-ink)]
+      hover:shadow-[3px_3px_0px_var(--color-ink)]
+      hover:translate-x-[3px] hover:translate-y-[3px]
+      active:shadow-none active:translate-x-[6px] active:translate-y-[6px]
     `,
     ghost: `
-      bg-transparent text-ink
-      hover:bg-paper/50
+      bg-transparent text-[var(--color-ink)]
+      hover:bg-[var(--color-wash-grey)]
       shadow-none
     `
   };
 
   const sizeStyles = {
-    sm: 'px-3 py-1.5 text-xs',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-3 text-base'
+    sm: 'px-4 py-2 text-xs',
+    md: 'px-6 py-3 text-sm',
+    lg: 'px-8 py-4 text-base'
   };
 
   const widthStyle = fullWidth ? 'w-full' : '';
@@ -109,16 +109,16 @@ export function IconButton({
   ...props
 }) {
   const sizeStyles = {
-    sm: 'w-8 h-8',
-    md: 'w-10 h-10',
-    lg: 'w-12 h-12'
+    sm: 'w-9 h-9',
+    md: 'w-11 h-11',
+    lg: 'w-14 h-14'
   };
 
   const variantStyles = {
-    primary: 'bg-hero-blue text-white hover:bg-hero-blue/90',
-    secondary: 'bg-paper text-ink hover:bg-ink/10',
-    danger: 'bg-hero-red text-white hover:bg-hero-red/90',
-    ghost: 'bg-transparent text-ink hover:bg-paper/50'
+    primary: 'bg-[var(--color-hero-blue)] text-white hover:bg-[var(--color-hero-blue)]/90',
+    secondary: 'bg-[var(--color-paper)] text-[var(--color-ink)] hover:bg-[var(--color-wash-grey)]',
+    danger: 'bg-[var(--color-hero-red)] text-white hover:bg-[var(--color-hero-red)]/90',
+    ghost: 'bg-transparent text-[var(--color-ink)] hover:bg-[var(--color-wash-grey)]'
   };
 
   return (
@@ -130,11 +130,14 @@ export function IconButton({
       className={`
         ${sizeStyles[size]}
         ${variantStyles[variant]}
-        border-2 border-ink rounded-full
+        border-3 border-ink
         flex items-center justify-center
         transition-all duration-200
+        shadow-[4px_4px_0px_var(--color-ink)]
+        hover:shadow-[2px_2px_0px_var(--color-ink)]
+        hover:translate-x-[2px] hover:translate-y-[2px]
         disabled:opacity-50 disabled:cursor-not-allowed
-        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-hero-blue
+        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-hero-blue)]
         ${className}
       `.trim().replace(/\s+/g, ' ')}
       {...props}
